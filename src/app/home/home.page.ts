@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationError, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,42 +8,73 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  nome: string = "Demerson";
-
- 
-  cor = "dark";
-
-  cores = ["danger","success","secondary","warning"]
-  idx = 0
-
+  nome = "";
   humor = "sad";
-  
   checked_humor = false;
+  cores = ["primary", "danger", "success", "warning"];
+  idx = 0;
+  sexo = "";
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  trocarCor(): void {
-    console.log('chamou trocaCor!');
-    if (this.idx > this.cores.length) {
-      this.idx = 0;
-    
-    } 
-    this.cor = this.cores[this.idx];
-    this.idx ++;
-    
+  ionViewDidLoad(){
+    console.log('Home: ionViewDidLoad!');
+  }
+
+  ionViewDidEnter(){
+    console.log('Home: ionViewDidEnter!');
   }
 
 
-  mudaHumor(): void{
-    console.log('chamou muda o humor!');
+  ionViewWillEnter(){
+    console.log('Home: ionViewWillEnter!');
+  }
+
+  ionViewWillLeave(){
+    console.log('Home: ionViewWillLeave!');
+  }
+
+  trocarCor(): void {
+    if (this.idx < this.cores.length - 1) {
+      this.idx += 1;
+    } else {
+      this.idx = 0;
+    }
+  }
+
+  mudaHumor(): void {
+    console.log('Chamou mudaHumor!');
     this.checked_humor = !this.checked_humor;
-    if (this.checked_humor == true){
+    if (this.checked_humor == true) {
       this.humor = "happy";
-    }else{
+    } else {
       this.humor = "sad";
     }
   }
+
+  selecionaSexo(event): void {
+    console.log(event.detail.value);
+    this.sexo = event.detail.value;
+  }
+
+  defineNome(event) {
+    console.log(event.detail.value);
+    this.nome = event.detail.value;
+  }
+
+  irParaDetalhes(){
+    this.router.navigate(['detalhes']);
+    let extras: NavigationExtras = {
+      queryParams:{
+        'nome': this.nome,
+        'humor': this.humor,
+        'sexo': this.sexo,
+        'cor': this.cores[this.idx]
+      }
+    };
+    this.router.navigate(['/detalhes'], extras)
+  }
+
+
+
 }
-
-
-

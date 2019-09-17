@@ -7,24 +7,30 @@
 </ion-header>
 
 <ion-content padding>
-  <p>Hello world, {{ nome }}!</p>
-  <ion-button [color]="cor" shape="round" expand="full">
-
-
+  <p>Bem vindo, {{ nome }}</p>
+  <p>Sexo: {{ sexo }}</p>
+  <ion-button [color]="cores[idx]" shape="round" expand="full">
     Cor
   </ion-button>
-  <ion-button (click)="trocarCor()" color="dark" shape="round" expand="full">
-  
+  <ion-button (click)="trocarCor()" color="primary" shape="round" expand="full">
     Troca cor
-    
   </ion-button>
-  <ion-icon class="icon" [name]="humor">
-  </ion-icon>
-
+  <ion-icon class="icon" color="primary" [name]="humor"></ion-icon>
   <ion-item>
     <label>Humor</label>
-    <ion-toggle color="dark" [checked]="checked_humor" (ionChange)="mudaHumor()" slot="end"> 
-    </ion-toggle>
-</ion-item>
+    <ion-toggle [checked]="checked_humor" color="primary" (ionChange)="mudaHumor()" slot="end"></ion-toggle>
+  </ion-item>
+  <ion-item>
+    <ion-label>Sexo</ion-label>
+    <ion-select placeholder="sexo" (ionChange)="selecionaSexo($event)">
+      <ion-select-option value="feminino">feminino</ion-select-option>
+      <ion-select-option value="masculino">masculino</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-input placeholder="nome" (ionChange)="defineNome($event)"></ion-input>
+  </ion-item>
+  <ion-button padding (click)="irParaDetalhes()" color="primary" shape="round" expand="full">
+    Ok
+  </ion-button>
 </ion-content>
-
